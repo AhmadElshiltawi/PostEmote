@@ -15,7 +15,19 @@ def signup(request):
         email_address = request.POST['email']
         username = request.POST['username']
         password = request.POST['password']
-        confirm_password = request.POST('confirm-password')
+        confirm_password = request.POST['confirm-password']
+
+        if email_address == "":
+            messages.info(request, 'Email cannot be left blank!')
+            return redirect('signup')
+
+        if username == "":
+            messages.info(request, 'Username cannot be left blank!')
+            return redirect('signup')
+
+        if password == "":
+            messages.info(request, 'Password cannot be left blank!')
+            return redirect('signup')
 
         # Make sure the password and confirm-password are the same
         if password == confirm_password:
@@ -34,5 +46,7 @@ def signup(request):
         else:
             messages.info(request, 'Passwords do not match!')
             return redirect('signup')
+
+        return render(request, 'sign-up.html')
     else:
         return render(request, 'sign-up.html')
