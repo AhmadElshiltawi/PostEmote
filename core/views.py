@@ -1,0 +1,38 @@
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib.auth.models import User, auth
+from django.contrib import messages
+
+
+# Create your views here.
+def index(request):
+    return render(request, 'index.html')
+
+
+def signup(request):
+    if request.method == "POST":
+        # Get the values of the post method. These are what's used to sign up the user
+        email_address = request.POST['email']
+        username = request.POST['username']
+        password = request.POST['password']
+        confirm_password = request.POST('confirm-password')
+
+        # Make sure the password and confirm-password are the same
+        if password == confirm_password:
+            # Check if the email exists
+            if User.objects.filter(email=email_address).exists():
+                messages.info(request, 'Email is already taken!')
+                return redirect('signup')
+            # Check if the username exists
+            elif User.objects.filter(username=username).exists():
+                messages.info(request, 'Username is already taken!')
+                return redirect('signup')
+            # Everything checks out
+            else:
+                new_user = User.objects.create_user(username=username, email=email_address, password=password)
+                new_user.save()
+        else:
+            messages.info(request, 'Passwords do not match!')
+            return redirect('signup')
+    else:
+        return render(request, 'sign-up.html')

@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PostEmote Signin</title>
+    <link rel="stylesheet" href="{% static 'assets/sign-form.css' %}">
+  </head>
+  <body>
+    <div class="signupForm">
+      <form action="" class="form">
+        <h1 class="title">Sign in</h1>
+  
+        <div class="inputContainer">
+          <input name="username" type="text" class="input" placeholder="Username">
+        </div>
+  
+        <div class="inputContainer">
+          <input name="password" class="input" type="password" placeholder="Password">
+        </div>
+  
+        <input type="submit" class="submitBtn" value="Sign in">
+      </form>
+    </div>
+  </body>
+</html>
