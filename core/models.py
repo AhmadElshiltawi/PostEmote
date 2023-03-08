@@ -2,12 +2,11 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 
-# Create your models here.
 class Profile(models.Model):
     # Connect the profile to the authenticated user via foreign key
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     # ID that acts as the primary key
-    id_user = models.IntegerField()
+    id_user = models.IntegerField(unique=True)
 
     # Set bio to a text field with the option to be empty
     bio = models.TextField(blank=True)
@@ -23,7 +22,30 @@ class Profile(models.Model):
     sad_likes = models.IntegerField(default=0)
     shocked_likes = models.IntegerField(default=0)
 
-    def __str__(self):
-        return self.user.username
 
-# TODO: Setup the comments and posts models
+class Post(models.Model):
+    # Connect the post to the authenticated user via foreign key
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+
+    # ID that acts as the primary key
+    post_id = models.IntegerField(unique=True)
+
+    post_image = models.ImageField(upload_to='profile_images')
+
+    happy_likes = models.IntegerField(default=0)
+    angry_likes = models.IntegerField(default=0)
+    sad_likes = models.IntegerField(default=0)
+    shocked_likes = models.IntegerField(default=0)
+
+
+class Comment(models.Model):
+    # Connect the comment to the post via foreign key
+    post = models.ForeignKey(Post, to_field='post_id', on_delete=models.CASCADE)
+
+    # Connect the comment to the authenticated user via foreign key
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+
+    # ID that acts as the primary key
+    comment_id = models.IntegerField(unique=True)
+
+    comment = models.TextField()

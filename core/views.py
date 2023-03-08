@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-
+from .models import Profile
 
 # TODO: Set up the main page front end
 def index(request):
@@ -70,6 +70,7 @@ def signup(request):
                 # Create a new user object and save it to the database
                 new_user = User.objects.create_user(username=username, email=email_address, password=password)
                 new_user.save()
+
                 return redirect('signin')
         else:
             messages.info(request, 'Passwords do not match!')
@@ -83,3 +84,5 @@ def signup(request):
 def signout(request):
     auth.logout(request)
     return redirect('signin')
+
+# TODO: Set up the post and comment functionalities
