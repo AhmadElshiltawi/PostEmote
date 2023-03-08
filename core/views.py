@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from .models import Profile
+from . import backend
 
 # TODO: Set up the main page front end
 def index(request):
@@ -14,22 +15,24 @@ def signin(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        if username == "":
+        if not backend.validate_credential_not_null(username):
             messages.info(request, 'Username cannot be left blank!')
             return redirect('signin')
 
-        if password == "":
+        if not backend.validate_credential_not_null(password):
             messages.info(request, 'Password cannot be left blank!')
             return redirect('signin')
 
-        existing_user = auth.authenticate(username=username, password=password)
+        # If backend.authenticate_user returns a user, then the user has been logged in
+        # If backend.authenticate_user doesn't return anything, then no account without the proper
+        # credentials was found`
+        user = backend.authenticate_user(request, username, password)
 
-        if existing_user is not None:
-            auth.login(request, existing_user)
-            return redirect("/")
-        else:
+        if user is None:
             messages.info(request, 'Incorrect username or password')
             return redirect('signin')
+        else:
+            return redirect("/")
 
     else:
         return render(request, 'sign-in.html')
@@ -80,7 +83,7 @@ def signup(request):
         return render(request, 'sign-up.html')
 
 
-# TODO: Set this to a button so that the user can sign out of thr system
+# TODO: Set this to a button so that the user can sign out of the system
 def signout(request):
     auth.logout(request)
     return redirect('signin')

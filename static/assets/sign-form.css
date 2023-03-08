@@ -83,6 +83,13 @@ body {
     border: 2px solid #c29570;
   }
 
+  .errorMessage {
+    font-family: inherit;
+    color: #FD8A8A;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
   .input:not(:placeholder-shown)+ .label {
     color: transparent
   }
