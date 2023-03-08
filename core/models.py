@@ -26,4 +26,4 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-# TODO: Make a comments and post database
+# TODO: Setup the comments and posts models

@@ -6,23 +6,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PostEmote Signin</title>
+    <title>PostEmote Signup</title>
     <link rel="stylesheet" href="{% static 'assets/sign-form.css' %}">
   </head>
   <body>
     <div class="signupForm">
-      <form action="" class="form">
+      <form action="" method="POST" class="form">
+          {% csrf_token %}
         <h1 class="title">Sign in</h1>
-  
+
+          <div class="errorMessage">
+              {% for message in messages %}
+              {{ message }}
+              {% endfor %}
+          </div>
+
         <div class="inputContainer">
-          <input name="username" type="text" class="input" placeholder="Username">
+            <label>
+                <input name="username" type="text" class="input" placeholder="Username">
+            </label>
         </div>
-  
+
         <div class="inputContainer">
-          <input name="password" class="input" type="password" placeholder="Password">
+            <label>
+                <input name="password" type="password"  class="input" placeholder="Password">
+            </label>
         </div>
-  
-        <input type="submit" class="submitBtn" value="Sign in">
+
+        <input type="submit" class="submitBtn"  value="Sign in">
       </form>
     </div>
   </body>

@@ -4,9 +4,35 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 
 
-# Create your views here.
+# TODO: Set up the main page front end
 def index(request):
     return render(request, 'index.html')
+
+
+def signin(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+
+        if username == "":
+            messages.info(request, 'Username cannot be left blank!')
+            return redirect('signin')
+
+        if password == "":
+            messages.info(request, 'Password cannot be left blank!')
+            return redirect('signin')
+
+        existing_user = auth.authenticate(username=username, password=password)
+
+        if existing_user is not None:
+            auth.login(request, existing_user)
+            return redirect("/")
+        else:
+            messages.info(request, 'Incorrect username or password')
+            return redirect('signin')
+
+    else:
+        return render(request, 'sign-in.html')
 
 
 def signup(request):
@@ -41,12 +67,19 @@ def signup(request):
                 return redirect('signup')
             # Everything checks out
             else:
+                # Create a new user object and save it to the database
                 new_user = User.objects.create_user(username=username, email=email_address, password=password)
                 new_user.save()
+                return redirect('signin')
         else:
             messages.info(request, 'Passwords do not match!')
             return redirect('signup')
 
-        return render(request, 'sign-up.html')
     else:
         return render(request, 'sign-up.html')
+
+
+# TODO: Set this to a button so that the user can sign out of thr system
+def signout(request):
+    auth.logout(request)
+    return redirect('signin')

@@ -7,4 +7,7 @@ urlpatterns = [
 
     # For the signup path (www.our_url.com/signup), run views.signup
     path('signup', views.signup, name='signup'),
+
+    # For the signin path (www.our_url.com/signin), run views.signin
+    path('signin', views.signin, name='signin'),
 ]
