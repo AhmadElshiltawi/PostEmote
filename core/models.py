@@ -1,15 +1,14 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+import uuid
 
 
 class Profile(models.Model):
+
     # Connect the profile to the authenticated user via foreign key
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     # ID that acts as the primary key
-    id_user = models.IntegerField(unique=True)
-
-    # Set bio to a text field with the option to be empty
-    bio = models.TextField(blank=True)
+    id_user = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=50, editable=False)
 
     # Get profile uploaded picture and save it in the media folder under the folder "profile_images"
     # If the user doesn't upload a profile picture, then use the default blank-pp profile image
@@ -28,7 +27,7 @@ class Post(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     # ID that acts as the primary key
-    post_id = models.IntegerField(unique=True)
+    post_id = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=50, editable=False)
 
     post_image = models.ImageField(upload_to='profile_images')
 
@@ -46,6 +45,6 @@ class Comment(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     # ID that acts as the primary key
-    comment_id = models.IntegerField(unique=True)
+    comment_id = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=50, editable=False)
 
     comment = models.TextField()

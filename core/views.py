@@ -7,12 +7,27 @@ from django.contrib.auth.decorators import login_required
 from . import backend
 
 
+# TODO: Make a settings page
+# TODO: Make an image post page
+
 @login_required(login_url='signin')
 def index(request):
-    return render(request, 'index.html')
+
+    profile = Profile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        if request.FILES['profile-picture'] is not None:
+            profile.profile_image = request.FILES['profile-picture']
+            profile.save()
+        return redirect('index')
+
+    return render(request, 'index.html', {'profile': profile})
 
 
 def signin(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -41,6 +56,8 @@ def signin(request):
 
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     if request.method == "POST":
         # Get the values of the post method. These are what's used to sign up the user
         email_address = request.POST['email']
@@ -73,8 +90,7 @@ def signup(request):
             # Everything checks out
             else:
                 # Create a new user object and save it to the database
-                new_user = User.objects.create_user(username=username, email=email_address, password=password)
-                new_user.save()
+                backend.create_user(username, email_address, password)
 
                 return redirect('signin')
         else:
@@ -86,10 +102,10 @@ def signup(request):
 
 
 # TODO: Set this to a button so that the user can sign out of the system
+@login_required(login_url='signin')
 def signout(request):
     if request.user.is_authenticated:
         backend.sign_out(request)
     return redirect('signin')
-
 
 # TODO: Set up the post and comment functionalities

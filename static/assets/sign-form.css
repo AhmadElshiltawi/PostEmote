@@ -4,7 +4,7 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #2C3639;
+    background-color: #313131;
     font-family: "Allerta", sans-serif;
   }
 
@@ -33,7 +33,7 @@ body {
   }
 
   .form {
-    background-color: #3F4E4F;
+    background-color: #414141;
     width: 400px;
     border-radius: 16px;
     padding: 20px 40px;
@@ -72,7 +72,7 @@ body {
     margin-left: auto;
     padding: 15px 30px;
     border: none;
-    background-color: #A27B5C;
+    background-color: #EC625F;
     color: #DCD7C9;
     border-radius: 8px;
     cursor: pointer;
@@ -82,7 +82,7 @@ body {
   }
   
   .submitBtn:hover {
-    background-color: #c29570;
+    background-color: #f56967;
   }
 
   .input:focus + .label {
@@ -90,7 +90,7 @@ body {
   }
 
   .input:focus {
-    border: 2px solid #c29570;
+    border: 2px solid #EC625F;
   }
 
   .errorMessage {
