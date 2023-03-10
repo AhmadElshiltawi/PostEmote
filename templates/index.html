@@ -1,13 +1,242 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PostEmote Signin</title>
-    <link rel="stylesheet" href="sign-form.css">
-  </head>
-  <body>
-    THIS IS THE MAIN PAGE OF THE WEBSITE
-  </body>
+<head>
+	<meta charset="UTF-8">
+	<title>PostEmote</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://kit.fontawesome.com/c24fec9601.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/style.css' %}">
+</head>
+<body>
+	<section class="main-content">
+		<div class="wrapper">
+			<!--Top menu -->
+			<div class="sidebar">
+
+				<!--PostEmote logo-->
+			   
+				<div class="logo">
+                	<img src="{% static 'images/Instagram_Logo_2016.png' %}" alt="Postemote_logo">
+            	</div>
+
+			   <!--profile image & text-->
+			   
+			   <div class="profile-account">
+                	<img src="https://1.bp.blogspot.com/-vhmWFWO2r8U/YLjr2A57toI/AAAAAAAACO4/0GBonlEZPmAiQW4uvkCTm5LvlJVd_-l_wCNcBGAsYHQ/s16000/team-1-2.jpg" alt="profile_picture">
+                	<h3>Anamika Roy</h3>
+                	<p>Admin</p>
+            	</div>
+
+				<!--menu item-->
+
+				<div class="menu-items">
+					<ul>
+						<li>
+							<a href="#">
+								<span class="icon"><i class="fa-regular fa-clock"></i></span>
+								<span class="item">Most recent</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<span class="icon"><i class="fa-regular fa-face-surprise"></i></span>
+								<span class="item">Most surprising</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<span class="icon"><i class="fa-regular fa-face-laugh-squint"></i></span>
+								<span class="item">Most funny</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<span class="icon"><i class="fa-regular fa-face-angry"></i></span>
+								<span class="item">Most angering</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<span class="icon"><i class="fa-regular fa-face-sad-cry"></i></span>
+								<span class="item">Most sad</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<span class="icon"><i class="fa-regular fa-user"></i></span>
+								<span class="item">My posts</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<span class="icon"><i class="fa-solid fa-image"></i></span>
+								<span class="item">Post an image</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<span class="icon"><i class="fa-solid fa-lock"></i></span>
+								<span class="item">Admin</span>
+							</a>
+						</li>
+                        <li>
+							<a href="signout">
+								<span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+								<span class="item">Sign out</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="row">
+				<!-- Post one -->
+				<div class="col-sm-6 offset-sm-3">
+					<div class="post-block">
+						<div class="d-flex justify-content-between">
+							<div class="d-flex mb-3">
+								<div class="mr-2">
+									<a href="#!" class="profile-post"><img src="{% static 'images/user1.jpg' %}" alt="User" class="author-img"></a>
+								</div>
+								<div class="poster-info">
+									<div class="poster-name"><b>John doe</b></div>
+									<div class="poster-dot"> &nbsp;•&nbsp; </div>
+									<div class="poster-time">5 min</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="post-block__content mb-2">
+							<img src="{% static 'images/food1.jpg' %}" alt="Content img">
+						</div>
+						<div class="mb-3">
+							<div class="d-flex justify-content-between mb-2">
+								<div class="d-flex">
+									<div class="likes">
+										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-surprise"></i></span></a>
+										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-laugh-squint"></i></span></a>
+										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-angry"></i></span></a>
+										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-sad-cry"></i></span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="post-block__comments">
+							<!-- Comment Input -->
+							<div class="input-group mb-3">
+								<input type="text" class="form-control" placeholder="Share your thoughts">
+								<div class="input-group-append">
+								  	<button class="btn btn-primary" type="button" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
+								</div>
+							</div>
+
+							<!-- Comment one -->
+							<div class="comment-view-box mb-3">
+								<div class="d-flex mb-2">
+									<img src="{% static 'images/user2.jpg' %}" alt="User img" class="author-img author-img--small mr-2">
+										<div class="commenter-info">
+											<div class="comment"><b>CantThinkOfAName</b> laughed and said "this is very weirdweirdweirdweiaaaaa"</div>
+										</div>
+								</div>
+							</div>
+
+							<!-- Comment two -->
+							<div class="comment-view-box mb-3">
+								<div class="d-flex mb-2">
+									<img src="{% static 'images/user2.jpg' %}" alt="User img" class="author-img author-img--small mr-2">
+										<div class="commenter-info">
+											<div class="comment"><b>CantThinkOfAName</b> was angry and said "this is very weirdweirdweirdweadawdawdawdawdwadsaiaaaaa"</div>
+										</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<!-- Post two -->
+				<div class="col-sm-6 offset-sm-3">
+					<div class="post-block">
+						<div class="d-flex justify-content-between">
+							<div class="d-flex mb-3">
+								<div class="mr-2">
+									<a href="#!" class="profile-post"><img src="{% static 'images/user3.jpeg' %}" alt="User" class="author-img"></a>
+								</div>
+								<div class="poster-info">
+									<div class="poster-name"><b>Jane doe</b></div>
+									<div class="poster-dot"> &nbsp;•&nbsp; </div>
+									<div class="poster-time">1 hour</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="post-block__content mb-2">
+							<img src="{% static 'images/banff-guide.jpg' %}" alt="Content img">
+						</div>
+						<div class="mb-3">
+							<div class="d-flex justify-content-between mb-2">
+								<div class="d-flex">
+									<div class="likes">
+										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-surprise"></i></span></a>
+										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-laugh-squint"></i></span></a>
+										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-angry"></i></span></a>
+										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-sad-cry"></i></span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="post-block__comments">
+
+							<!-- Comment Input -->
+							<div class="input-group mb-3">
+								<input type="text" class="form-control" placeholder="Share your thoughts">
+								<div class="input-group-append">
+								  	<button class="btn btn-primary" type="button" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
+								</div>
+							</div>
+
+							<!-- Comment 1 -->
+							<div class="comment-view-box mb-3">
+								<div class="d-flex mb-2">
+									<img src="{% static 'images/user2.jpg' %}" alt="User img" class="author-img author-img--small mr-2">
+										<div class="commenter-info">
+											<div class="comment"><b>CantThinkOfAName</b> was angry and said "I don't like this"</div>
+										</div>
+								</div>
+							</div>
+
+							<!-- Comment 2 -->
+							<div class="comment-view-box mb-3">
+								<div class="d-flex mb-2">
+									<img src="{% static 'images/user1.jpg' %}" alt="User img" class="author-img author-img--small mr-2">
+										<div class="commenter-info">
+											<div class="comment"><b>John doe</b> was happy and said "I like this"</div>
+										</div>
+								</div>
+							</div>
+
+							<!-- Comment 3 -->
+							<div class="comment-view-box mb-3">
+								<div class="d-flex mb-2">
+									<img src="{% static 'images/user2.jpg' %}" alt="User img" class="author-img author-img--small mr-2">
+										<div class="commenter-info">
+											<div class="comment"><b>CantThinkOfAName</b> was happy and said "I now like this"</div>
+										</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
 </html>

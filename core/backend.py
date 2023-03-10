@@ -16,3 +16,6 @@ def authenticate_user(request, username, password):
         return user
     else:
         return None
+
+def sign_out(requests):
+    auth.logout(requests)

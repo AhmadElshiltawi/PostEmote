@@ -15,6 +15,16 @@ body {
     height: 100vh;
   }
 
+  a {
+    color: #DCD7C9;
+    text-decoration: none;
+  }
+
+  a:visited {
+    color: #DCD7C9;
+    text-decoration: none;
+  }
+
   .inputContainer {
     position: relative;
     height: 45px;

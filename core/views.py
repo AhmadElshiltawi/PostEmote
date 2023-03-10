@@ -3,9 +3,11 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from .models import Profile
+from django.contrib.auth.decorators import login_required
 from . import backend
 
-# TODO: Set up the main page front end
+
+@login_required(login_url='signin')
 def index(request):
     return render(request, 'index.html')
 
@@ -85,7 +87,9 @@ def signup(request):
 
 # TODO: Set this to a button so that the user can sign out of the system
 def signout(request):
-    auth.logout(request)
+    if request.user.is_authenticated:
+        backend.sign_out(request)
     return redirect('signin')
+
 
 # TODO: Set up the post and comment functionalities

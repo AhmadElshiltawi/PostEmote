@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PostEmote Signup</title>
+    <title>PostEmote Sign in</title>
     <link rel="stylesheet" href="{% static 'assets/sign-form.css' %}">
   </head>
   <body>
@@ -34,6 +34,8 @@
         </div>
 
         <input type="submit" class="submitBtn"  value="Sign in">
+      <br>
+      <a href="{% url 'signup' %}"> Don't have an account? sign up here.</a>
       </form>
     </div>
   </body>

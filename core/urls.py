@@ -10,4 +10,7 @@ urlpatterns = [
 
     # For the signin path (www.our_url.com/signin), run views.signin
     path('signin', views.signin, name='signin'),
+
+    # For the sign out path (www.our_url.com/signout), run views.signin
+    path('signout', views.signout, name='signout'),
 ]
