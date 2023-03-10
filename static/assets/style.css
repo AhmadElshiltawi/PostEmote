@@ -36,11 +36,15 @@ body {
 	transition: all 0.2s;
 	width: 650px;
 }
+
+.post-image {
+	border: 3px solid #DCD7C9;
+}
 .post-block img.author-img {
 	height: 50px;
 	width: 50px;
 	border-radius: 50px;
-	border: 2px solid #525252;
+	border: 3px solid #DCD7C9;
 }
 
 .post-block img.author-img.author-img--small {
@@ -152,11 +156,10 @@ body {
 	padding: 20px 0;
 	transition: all 0.5s ease;
 	box-shadow: 0 10px 25px rgba(92, 99, 105, .2);
-	border-radius: 15px;
   }
   
   .wrapper .sidebar .logo{
-	margin-bottom: 50px;
+	margin-bottom: 30px;
 	text-align: center;
   }
   
@@ -180,7 +183,7 @@ body {
 	height: 100px;
 	border-radius: 50%;
 	margin: 0 auto;
-	border: 4px solid #525252;
+	border: 4px solid #DCD7C9;
   }
   
   .wrapper .sidebar .profile-account h3{
@@ -215,8 +218,20 @@ body {
 	background:#EC625F;
 	transition: 0.5s;
   }
+
+  .wrapper .sidebar button:hover{
+	color: #DCD7C9;
+	border: solid 1px #EC625F;
+	border-radius: 15px;
+	background:#EC625F;
+	transition: 0.5s;
+  }
   
   .wrapper .sidebar ul li a:hover:before{
+	display: block;
+  }
+
+  .wrapper .sidebar button:hover:before{
 	display: block;
   }
   

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import Profile
+from .models import Profile, Post
 from django.contrib.auth.decorators import login_required
 from . import backend
 
@@ -12,16 +12,19 @@ from . import backend
 
 @login_required(login_url='signin')
 def index(request):
-
     profile = Profile.objects.get(user=request.user)
 
     if request.method == 'POST':
-        if request.FILES['profile-picture'] is not None:
+        if 'profile-picture' in request.FILES:
             profile.profile_image = request.FILES['profile-picture']
             profile.save()
+        if 'post-image' in request.FILES:
+            new_post = Post(user=request.user, post_image=request.FILES['post-image'])
+            new_post.save()
+
         return redirect('index')
 
-    return render(request, 'index.html', {'profile': profile})
+    return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all()})
 
 
 def signin(request):

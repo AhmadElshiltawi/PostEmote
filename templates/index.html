@@ -41,6 +41,8 @@
                     {% endif %}
             	</div>
 
+
+
 				<!--menu item-->
 
 				<div class="menu-items">
@@ -75,17 +77,16 @@
 								<span class="item">Most sad</span>
 							</a>
 						</li>
-						<li>
-							<a href="#">
-								<span class="icon"><i class="fa-regular fa-user"></i></span>
-								<span class="item">My posts</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<span class="icon"><i class="fa-solid fa-image"></i></span>
-								<span class="item">Post an image</span>
-							</a>
+                        <li>
+                            <form id="post-upload" enctype="multipart/form-data" method="POST">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <input name='post-image' id="post" type="file" onchange="this.form.submit()" style="display: none;">
+                            </form>
+                                <a href="#"><label for="post" style="margin: 0">
+                                    <span class="icon"><i class="fa-regular fa-image"></i></span>
+								    <span class="item">Post an image</span>
+                                </label></a>
 						</li>
                         {% if user.is_staff %}
                         <li>
@@ -95,6 +96,7 @@
 							</a>
 						</li>
                         {% endif %}
+
                         <li>
 							<a href="{% url 'signout' %}">
 								<span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
@@ -102,6 +104,7 @@
 							</a>
 						</li>
 					</ul>
+                <label>
 				</div>
 			</div>
 		</div>
@@ -117,15 +120,14 @@
 									<a href="#!" class="profile-post"><img src="{% static 'images/user1.jpg' %}" alt="User" class="author-img"></a>
 								</div>
 								<div class="poster-info">
-									<div class="poster-name"><b>John doe</b></div>
+									<div class="poster-name">John doe</div>
 									<div class="poster-dot"> &nbsp;•&nbsp; </div>
 									<div class="poster-time">5 min</div>
 								</div>
 							</div>
 						</div>
-
 						<div class="post-block__content mb-2">
-							<img src="{% static 'images/food1.jpg' %}" alt="Content img">
+							<img class="post-image" src="{% static 'images/food1.jpg' %}" alt="Content img">
 						</div>
 						<div class="mb-3">
 							<div class="d-flex justify-content-between mb-2">
@@ -158,98 +160,9 @@
 										</div>
 								</div>
 							</div>
-
-							<!-- Comment two -->
-							<div class="comment-view-box mb-3">
-								<div class="d-flex mb-2">
-									<img src="{% static 'images/user2.jpg' %}" alt="User img" class="author-img author-img--small mr-2">
-										<div class="commenter-info">
-											<div class="comment"><b>CantThinkOfAName</b> was angry and said "this is very weirdweirdweirdweadawdawdawdawdwadsaiaaaaa"</div>
-										</div>
-								</div>
-							</div>
-
 						</div>
 					</div>
 				</div>
-
-				<!-- Post two -->
-				<div class="col-sm-6 offset-sm-3">
-					<div class="post-block">
-						<div class="d-flex justify-content-between">
-							<div class="d-flex mb-3">
-								<div class="mr-2">
-									<a href="#!" class="profile-post"><img src="{% static 'images/user3.jpeg' %}" alt="User" class="author-img"></a>
-								</div>
-								<div class="poster-info">
-									<div class="poster-name"><b>Jane doe</b></div>
-									<div class="poster-dot"> &nbsp;•&nbsp; </div>
-									<div class="poster-time">1 hour</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="post-block__content mb-2">
-							<img src="{% static 'images/banff-guide.jpg' %}" alt="Content img">
-						</div>
-						<div class="mb-3">
-							<div class="d-flex justify-content-between mb-2">
-								<div class="d-flex">
-									<div class="likes">
-										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-surprise"></i></span></a>
-										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-laugh-squint"></i></span></a>
-										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-angry"></i></span></a>
-										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-sad-cry"></i></span></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<hr>
-						<div class="post-block__comments">
-
-							<!-- Comment Input -->
-							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="Share your thoughts">
-								<div class="input-group-append">
-								  	<button class="btn btn-primary" type="button" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
-								</div>
-							</div>
-
-							<!-- Comment 1 -->
-							<div class="comment-view-box mb-3">
-								<div class="d-flex mb-2">
-									<img src="{% static 'images/user2.jpg' %}" alt="User img" class="author-img author-img--small mr-2">
-										<div class="commenter-info">
-											<div class="comment"><b>CantThinkOfAName</b> was angry and said "I don't like this"</div>
-										</div>
-								</div>
-							</div>
-
-							<!-- Comment 2 -->
-							<div class="comment-view-box mb-3">
-								<div class="d-flex mb-2">
-									<img src="{% static 'images/user1.jpg' %}" alt="User img" class="author-img author-img--small mr-2">
-										<div class="commenter-info">
-											<div class="comment"><b>John doe</b> was happy and said "I like this"</div>
-										</div>
-								</div>
-							</div>
-
-							<!-- Comment 3 -->
-							<div class="comment-view-box mb-3">
-								<div class="d-flex mb-2">
-									<img src="{% static 'images/user2.jpg' %}" alt="User img" class="author-img author-img--small mr-2">
-										<div class="commenter-info">
-											<div class="comment"><b>CantThinkOfAName</b> was happy and said "I now like this"</div>
-										</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</section>
 </body>
 </html>

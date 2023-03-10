@@ -29,7 +29,7 @@ class Post(models.Model):
     # ID that acts as the primary key
     post_id = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=50, editable=False)
 
-    post_image = models.ImageField(upload_to='profile_images')
+    post_image = models.ImageField(upload_to='post_images')
 
     happy_likes = models.IntegerField(default=0)
     angry_likes = models.IntegerField(default=0)
