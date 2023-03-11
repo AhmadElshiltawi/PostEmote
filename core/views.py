@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import Profile, Post
+from .models import Profile, Post, Comment
 from django.contrib.auth.decorators import login_required
 from . import backend
 
@@ -18,13 +18,23 @@ def index(request):
         if 'profile-picture' in request.FILES:
             profile.profile_image = request.FILES['profile-picture']
             profile.save()
-        if 'post-image' in request.FILES:
-            new_post = Post(user=request.user, post_image=request.FILES['post-image'])
+            return redirect('/')
+
+        elif 'post-image' in request.FILES:
+            new_post = Post(profile=profile, post_image=request.FILES['post-image'])
             new_post.save()
+            return redirect('/')
 
-        return redirect('index')
+        elif 'comment' in request.POST:
+            cur_post_id = request.POST['post_id']
+            cur_comment = request.POST['comment']
+            current_post = Post.objects.get(post_id=cur_post_id)
+            new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
+            new_comment.save()
+            print(new_comment.comment_id)
+            return redirect('/')
 
-    return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all()})
+    return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all(), 'comments': Comment.objects.all()})
 
 
 def signin(request):

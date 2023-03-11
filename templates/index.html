@@ -41,8 +41,6 @@
                     {% endif %}
             	</div>
 
-
-
 				<!--menu item-->
 
 				<div class="menu-items">
@@ -104,30 +102,30 @@
 							</a>
 						</li>
 					</ul>
-                <label>
 				</div>
 			</div>
 		</div>
 		
 		<div class="container">
 			<div class="row">
-				<!-- Post one -->
+                {% for post in posts reversed %}
+
 				<div class="col-sm-6 offset-sm-3">
 					<div class="post-block">
 						<div class="d-flex justify-content-between">
 							<div class="d-flex mb-3">
 								<div class="mr-2">
-									<a href="#!" class="profile-post"><img src="{% static 'images/user1.jpg' %}" alt="User" class="author-img"></a>
+									<a href="#!" class="profile-post"><img src={{ post.profile.profile_image.url }} alt="User" class="author-img"></a>
 								</div>
 								<div class="poster-info">
-									<div class="poster-name">John doe</div>
+									<div class="poster-name">{{ post.profile.user.get_username }}</div>
 									<div class="poster-dot"> &nbsp;•&nbsp; </div>
 									<div class="poster-time">5 min</div>
 								</div>
 							</div>
 						</div>
 						<div class="post-block__content mb-2">
-							<img class="post-image" src="{% static 'images/food1.jpg' %}" alt="Content img">
+							<img class="post-image" src={{ post.post_image.url }} alt="Content img">
 						</div>
 						<div class="mb-3">
 							<div class="d-flex justify-content-between mb-2">
@@ -144,25 +142,37 @@
 						<hr>
 						<div class="post-block__comments">
 							<!-- Comment Input -->
-							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="Share your thoughts">
-								<div class="input-group-append">
-								  	<button class="btn btn-primary" type="button" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
-								</div>
-							</div>
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <input name="post_id" type="hidden" value={{ post.post_id }}>
+                                <div class="input-group mb-3">
+                                        <input name="comment" type="text" class="form-control" placeholder="Share your thoughts">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="submit" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
+                                        </div>
+                                </div>
+                            </form>
 
 							<!-- Comment one -->
-							<div class="comment-view-box mb-3">
-								<div class="d-flex mb-2">
-									<img src="{% static 'images/user2.jpg' %}" alt="User img" class="author-img author-img--small mr-2">
-										<div class="commenter-info">
-											<div class="comment"><b>CantThinkOfAName</b> laughed and said "this is very weirdweirdweirdweiaaaaa"</div>
-										</div>
-								</div>
-							</div>
+                            {% for cur_comment in comments %}
+                                {% if post.post_id == cur_comment.post_id %}
+                                    <div class="comment-view-box mb-3">
+                                        <div class="d-flex mb-2">
+                                            <img src={{ cur_comment.profile.profile_image.url }} alt="User img" class="author-img author-img--small mr-2">
+                                                <div class="commenter-info">
+                                                    <div class="comment"><b>{{ cur_comment.profile.user.get_username }}</b> {{ cur_comment.comment }}</div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
 						</div>
 					</div>
 				</div>
+                {% endfor %}
+            </div>
+        </div>
 	</section>
 </body>
 </html>
