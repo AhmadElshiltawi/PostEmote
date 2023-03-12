@@ -97,7 +97,7 @@ def happy_react(request):
         return redirect('/')
     elif suprised_filter:
         suprised_filter.delete()
-        post.suprised_likes -= 1
+        post.shocked_likes -= 1
         new_react = HappyReact.objects.create(post=post, profile=profile)
         new_react.save()
         post.happy_likes += 1
