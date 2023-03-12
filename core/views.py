@@ -6,10 +6,6 @@ from .models import Profile, Post, Comment
 from django.contrib.auth.decorators import login_required
 from . import backend
 
-
-# TODO: Make a settings page
-# TODO: Make an image post page
-
 @login_required(login_url='signin')
 def index(request):
     profile = Profile.objects.get(user=request.user)
@@ -31,7 +27,6 @@ def index(request):
             current_post = Post.objects.get(post_id=cur_post_id)
             new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
             new_comment.save()
-            print(new_comment.comment_id)
             return redirect('/')
 
     return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all(), 'comments': Comment.objects.all()})

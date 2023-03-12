@@ -7,18 +7,19 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: 'Allerta', sans-serif;
-	color: #DCD7C9;
+	color: #ffffff;
 }
 
 
 hr {
-	height: 1px;
-    background-color: #DCD7C9;
+	height: 4px;
+    background-color: #ffffff;
     border: none;
+	border-radius: 5px;
 }
 
 body {
-	background: #313131;
+	background: #000000;
 }
 
 .main-content {
@@ -27,7 +28,7 @@ body {
 }
 
 .post-block {
-	background: #414141;
+	background: #1c1b1b;
 	padding: 25px;
 	margin-bottom: 25px;
 	border-radius: 15px;
@@ -38,13 +39,13 @@ body {
 }
 
 .post-image {
-	border: 3px solid #DCD7C9;
+	border: 4px solid #ffffff;
 }
 .post-block img.author-img {
 	height: 50px;
 	width: 50px;
 	border-radius: 50px;
-	border: 3px solid #DCD7C9;
+	border: 3px solid #ffffff;
 }
 
 .post-block img.author-img.author-img--small {
@@ -61,31 +62,34 @@ body {
 }
 .post-block .comment-view-box__comment {
 	border-radius: 5px;
-	background: #313131;
+	background: #1c1b1b;
 	padding: 35px;
 }
 
 .form-control {
-	background: #414141;
-	border: 2px solid #DCD7C9;
-	color: #DCD7C9;
+	background: #1c1b1b;
+	border: 4px solid #ffffff;
+	border-radius: 20px;
+	color: #ffffff;
 	margin-right:1px;
 }
 
 .form-control:focus{
-	background: #414141;
-	border: 2px solid #DCD7C9;
-	color: #DCD7C9;
+	background: #1c1b1b;
+	border: 4px solid #EC625F;
+	color: #ffffff;
 	box-shadow: none;
 }
 
-#button-addon2 {
-    background-color:#DCD7C9;
+.input-group-append button {
+	background-color:#ffffff;
 	border: none;
+	border-bottom-right-radius: 20px;
+	border-top-right-radius: 20px;
 }
 
 .fa.fa-paper-plane {
-	color: #414141;
+	color: #1c1b1b;
 	font-size: 20px;
 	padding: 5px;
 }
@@ -100,7 +104,7 @@ body {
 }
 
 .form-control::placeholder {
-	color: #DCD7C9;
+	color: #ffffff;
 	opacity: 0.8;
 }
 
@@ -135,7 +139,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	display: flex;
-	font-size: 12px;
+	font-size: 14px;
   }
 
   .comment {
@@ -147,7 +151,7 @@ body {
   }
 
 .wrapper .sidebar{
-	background: #414141;
+	background: #1c1b1b;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -183,7 +187,7 @@ body {
 	height: 100px;
 	border-radius: 50%;
 	margin: 0 auto;
-	border: 4px solid #DCD7C9;
+	border: 4px solid #ffffff;
   }
   
   .wrapper .sidebar .profile-account h3{
@@ -206,13 +210,13 @@ body {
   }
   
   .wrapper .sidebar ul li a .icon{
-	color: #DCD7C9;
+	color: #ffffff;
 	width: 30px;
 	display: inline-block;
   }
 
   .wrapper .sidebar ul li a:hover{
-	color: #DCD7C9;
+	color: #ffffff;
 	border: solid 1px #EC625F;
 	border-radius: 15px;
 	background:#EC625F;
@@ -220,7 +224,7 @@ body {
   }
 
   .wrapper .sidebar button:hover{
-	color: #DCD7C9;
+	color: #ffffff;
 	border: solid 1px #EC625F;
 	border-radius: 15px;
 	background:#EC625F;

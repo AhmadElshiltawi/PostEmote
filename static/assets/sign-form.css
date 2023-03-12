@@ -4,7 +4,7 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #313131;
+    background-color: #000000;
     font-family: "Allerta", sans-serif;
   }
 
@@ -16,12 +16,12 @@ body {
   }
 
   a {
-    color: #DCD7C9;
+    color: #ffffff;
     text-decoration: none;
   }
 
   a:visited {
-    color: #DCD7C9;
+    color: #ffffff;
     text-decoration: none;
   }
 
@@ -33,7 +33,7 @@ body {
   }
 
   .form {
-    background-color: #414141;
+    background-color: #1c1b1b;
     width: 400px;
     border-radius: 16px;
     padding: 20px 40px;
@@ -43,7 +43,7 @@ body {
   .title {
     font-size: 50px;
     margin-bottom: 50px;
-    color: #DCD7C9;
+    color: #ffffff;
   }
 
   .input {
@@ -52,7 +52,7 @@ body {
     left: 0px;
     height: 100%;
     width: 100%;
-    border: 2px solid #DCD7C9;
+    border: 2px solid #ffffff;
     border-radius: 7px;
     font-size: 16px;
     padding: 0 20px;
@@ -60,11 +60,11 @@ body {
     background: none;
     z-index: 1;
     font-family: inherit;
-    color: #DCD7C9;
+    color: #ffffff;
   }
 
   .input::placeholder {
-    color:#DCD7C9;
+    color:#ffffff;
   }
 
   .submitBtn {
@@ -73,7 +73,7 @@ body {
     padding: 15px 30px;
     border: none;
     background-color: #EC625F;
-    color: #DCD7C9;
+    color: #ffffff;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;

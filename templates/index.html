@@ -8,6 +8,7 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="https://kit.fontawesome.com/c24fec9601.js" crossorigin="anonymous"></script>
+    <script src="{% static 'assets/comment-color.js' %}"></script>
 	<link rel="stylesheet" type="text/css" href="{% static 'assets/style.css' %}">
 </head>
 <body>
@@ -79,7 +80,7 @@
                             <form id="post-upload" enctype="multipart/form-data" method="POST">
                                 {% csrf_token %}
                                 {{ form.as_p }}
-                                <input name='post-image' id="post" type="file" onchange="this.form.submit()" style="display: none;">
+                                <input name='post-image' id="post" type="file" onchange="this.form.submit()" style="display: none;" accept="image/*">
                             </form>
                                 <a href="#"><label for="post" style="margin: 0">
                                     <span class="icon"><i class="fa-regular fa-image"></i></span>
@@ -131,10 +132,15 @@
 							<div class="d-flex justify-content-between mb-2">
 								<div class="d-flex">
 									<div class="likes">
+                                        {% if post.profile.user.get_username != user.get_username %}
 										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-surprise"></i></span></a>
 										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-laugh-squint"></i></span></a>
 										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-angry"></i></span></a>
 										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-sad-cry"></i></span></a>
+                                        {% endif %}
+                                        {% if post.profile.user.get_username == user.get_username %}
+                                        <a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-circle-xmark"></i></span></a>
+                                        {% endif %}
 									</div>
 								</div>
 							</div>
@@ -147,21 +153,21 @@
                                 {{ form.as_p }}
                                 <input name="post_id" type="hidden" value={{ post.post_id }}>
                                 <div class="input-group mb-3">
-                                        <input name="comment" type="text" class="form-control" placeholder="Share your thoughts">
+                                        <input name="comment" type="text" onfocusin="commentButtonRed('button-addon{{ forloop.counter }}')" onfocusout="commentButtonWhite('button-addon{{ forloop.counter }}')" class="form-control" id="comment-input{{ forloop.counter }}" placeholder="Share your thoughts">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
+                                            <button class="btn btn-primary" type="submit" id="button-addon{{ forloop.counter }}"><i class="fa fa-paper-plane"></i></button>
                                         </div>
                                 </div>
                             </form>
 
 							<!-- Comment one -->
-                            {% for cur_comment in comments %}
+                            {% for cur_comment in comments reversed %}
                                 {% if post.post_id == cur_comment.post_id %}
                                     <div class="comment-view-box mb-3">
                                         <div class="d-flex mb-2">
                                             <img src={{ cur_comment.profile.profile_image.url }} alt="User img" class="author-img author-img--small mr-2">
                                                 <div class="commenter-info">
-                                                    <div class="comment"><b>{{ cur_comment.profile.user.get_username }}</b> {{ cur_comment.comment }}</div>
+                                                    <div class="comment">{{ cur_comment.profile.user.get_username }}: {{ cur_comment.comment }}</div>
                                                 </div>
                                         </div>
                                     </div>
