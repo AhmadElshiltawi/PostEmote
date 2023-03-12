@@ -133,10 +133,14 @@
 								<div class="d-flex">
 									<div class="likes">
                                         {% if post.profile.user.get_username != user.get_username %}
-										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-surprise"></i></span></a>
-										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-laugh-squint"></i></span></a>
-										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-angry"></i></span></a>
-										<a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-face-sad-cry"></i></span></a>
+										<a href="/suprised-react?post_id={{post.post_id}}" class="text-danger mr-2"><span><i class="fa-regular fa-face-surprise"></i></span></a>
+										<a class="text-danger mr-2">{{ post.shocked_likes }} </a>
+										<a href="/happy-react?post_id={{post.post_id}}" class="text-danger mr-2"><span><i class="fa-regular fa-face-laugh-squint"></i></span></a>
+										<a class="text-danger mr-2">{{ post.happy_likes }} </a>
+										<a href="/angry-react?post_id={{post.post_id}}" class="text-danger mr-2"><span><i class="fa-regular fa-face-angry"></i></span></a>
+										<a class="text-danger mr-2">{{ post.angry_likes }} </a>
+										<a href="/sad-react?post_id={{post.post_id}}" class="text-danger mr-2"><span><i class="fa-regular fa-face-sad-cry"></i></span></a>
+										<a class="text-danger mr-2">{{ post.sad_likes }} </a>
                                         {% endif %}
                                         {% if post.profile.user.get_username == user.get_username %}
                                         <a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-circle-xmark"></i></span></a>

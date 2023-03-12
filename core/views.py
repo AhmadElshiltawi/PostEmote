@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import Profile, Post, Comment
+from .models import Profile, Post, Comment, SuprisedReact, HappyReact, AngryReact, SadReact
 from django.contrib.auth.decorators import login_required
 from . import backend
 
@@ -31,6 +31,191 @@ def index(request):
 
     return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all(), 'comments': Comment.objects.all()})
 
+@login_required(login_url='signin')
+def suprised_react(request):
+    # get profile of user reacting and post
+    profile = Profile.objects.get(user=request.user)
+    post = Post.objects.get(post_id=request.GET.get('post_id'))
+    
+    # check if the user has reacted to this post in any way
+    suprised_filter = SuprisedReact.objects.filter(post=post, profile=profile).first()
+    happy_filter = HappyReact.objects.filter(post=post, profile=profile).first()
+    angry_filter = AngryReact.objects.filter(post=post, profile=profile).first()
+    sad_filter = SadReact.objects.filter(post=post, profile=profile).first()
+    
+    if suprised_filter == None and happy_filter == None and angry_filter == None and sad_filter == None:
+        new_react = SuprisedReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.shocked_likes += 1
+        post.save()
+        return redirect('/')
+    elif happy_filter:
+        happy_filter.delete()
+        post.happy_likes -= 1
+        new_react = SuprisedReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.shocked_likes += 1
+        post.save()
+        return redirect('/')
+    elif angry_filter:
+        angry_filter.delete()
+        post.angry_likes -= 1
+        new_react = SuprisedReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.shocked_likes += 1
+        post.save()
+        return redirect('/')
+    elif sad_filter:
+        sad_filter.delete()
+        post.sad_likes -= 1
+        new_react = SuprisedReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.shocked_likes += 1
+        post.save()
+        return redirect('/')
+    else:
+        suprised_filter.delete()
+        post.shocked_likes -= 1
+        post.save()
+        return redirect('/')
+    
+@login_required(login_url='signin')
+def happy_react(request):
+    profile = Profile.objects.get(user=request.user)
+    post = Post.objects.get(post_id=request.GET.get('post_id'))
+    
+    suprised_filter = SuprisedReact.objects.filter(post=post, profile=profile).first()
+    happy_filter = HappyReact.objects.filter(post=post, profile=profile).first()
+    angry_filter = AngryReact.objects.filter(post=post, profile=profile).first()
+    sad_filter = SadReact.objects.filter(post=post, profile=profile).first()
+    
+    if suprised_filter == None and happy_filter == None and angry_filter == None and sad_filter == None:
+        new_react = HappyReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.happy_likes += 1
+        post.save()
+        return redirect('/')
+    elif suprised_filter:
+        suprised_filter.delete()
+        post.suprised_likes -= 1
+        new_react = HappyReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.happy_likes += 1
+        post.save()
+        return redirect('/')
+    elif angry_filter:
+        angry_filter.delete()
+        post.angry_likes -= 1
+        new_react = HappyReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.happy_likes += 1
+        post.save()
+        return redirect('/')
+    elif sad_filter:
+        sad_filter.delete()
+        post.sad_likes -= 1
+        new_react = HappyReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.happy_likes += 1
+        post.save()
+        return redirect('/')
+    else:
+        happy_filter.delete()
+        post.happy_likes -= 1
+        post.save()
+        return redirect('/')
+
+@login_required(login_url='signin')
+def angry_react(request):
+    profile = Profile.objects.get(user=request.user)
+    post = Post.objects.get(post_id=request.GET.get('post_id'))
+    
+    suprised_filter = SuprisedReact.objects.filter(post=post, profile=profile).first()
+    happy_filter = HappyReact.objects.filter(post=post, profile=profile).first()
+    angry_filter = AngryReact.objects.filter(post=post, profile=profile).first()
+    sad_filter = SadReact.objects.filter(post=post, profile=profile).first()
+    
+    if suprised_filter == None and happy_filter == None and angry_filter == None and sad_filter == None:
+        new_react = AngryReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.angry_likes += 1
+        post.save()
+        return redirect('/')
+    elif happy_filter:
+        happy_filter.delete()
+        post.happy_likes -= 1
+        new_react = AngryReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.angry_likes += 1
+        post.save()
+        return redirect('/')
+    elif suprised_filter:
+        suprised_filter.delete()
+        post.shocked_likes -= 1
+        new_react = AngryReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.angry_likes += 1
+        post.save()
+        return redirect('/')
+    elif sad_filter:
+        sad_filter.delete()
+        post.sad_likes -= 1
+        new_react = AngryReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.angry_likes += 1
+        post.save()
+        return redirect('/')
+    else:
+        angry_filter.delete()
+        post.angry_likes -= 1
+        post.save()
+        return redirect('/')
+
+@login_required(login_url='signin')
+def sad_react(request):
+    profile = Profile.objects.get(user=request.user)
+    post = Post.objects.get(post_id=request.GET.get('post_id'))
+    
+    suprised_filter = SuprisedReact.objects.filter(post=post, profile=profile).first()
+    happy_filter = HappyReact.objects.filter(post=post, profile=profile).first()
+    angry_filter = AngryReact.objects.filter(post=post, profile=profile).first()
+    sad_filter = SadReact.objects.filter(post=post, profile=profile).first()
+    
+    if suprised_filter == None and happy_filter == None and angry_filter == None and sad_filter == None:
+        new_react = SadReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.sad_likes += 1
+        post.save()
+        return redirect('/')
+    elif happy_filter:
+        happy_filter.delete()
+        post.happy_likes -= 1
+        new_react = SadReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.sad_likes += 1
+        post.save()
+        return redirect('/')
+    elif angry_filter:
+        angry_filter.delete()
+        post.angry_likes -= 1
+        new_react = SadReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.sad_likes += 1
+        post.save()
+        return redirect('/')
+    elif suprised_filter:
+        suprised_filter.delete()
+        post.shocked_likes -= 1
+        new_react = SadReact.objects.create(post=post, profile=profile)
+        new_react.save()
+        post.sad_likes += 1
+        post.save()
+        return redirect('/')
+    else:
+        sad_filter.delete()
+        post.sad_likes -= 1
+        post.save()
+        return redirect('/')
 
 def signin(request):
     if request.user.is_authenticated:

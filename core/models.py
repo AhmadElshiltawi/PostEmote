@@ -16,7 +16,6 @@ class Profile(models.Model):
     # The blank-pp image can be found in media
     profile_image = models.ImageField(upload_to='profile_images', default="blank-pp.png")
 
-
 class Post(models.Model):
 
     # ID that acts as the primary key
@@ -44,3 +43,31 @@ class Comment(models.Model):
     profile = models.ForeignKey(Profile, to_field='u_id', on_delete=models.CASCADE, blank=True, null=True)
 
     comment = models.TextField()
+
+class SuprisedReact(models.Model):
+    superised_react_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    
+    post = models.ForeignKey(Post, to_field='post_id', on_delete=models.CASCADE, blank=True, null=True)
+    
+    profile = models.ForeignKey(Profile, to_field='u_id', on_delete=models.CASCADE, blank=True, null=True)
+    
+class HappyReact(models.Model):
+    happy_react_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    
+    post = models.ForeignKey(Post, to_field='post_id', on_delete=models.CASCADE, blank=True, null=True)
+    
+    profile = models.ForeignKey(Profile, to_field='u_id', on_delete=models.CASCADE, blank=True, null=True)
+    
+class AngryReact(models.Model):
+    angry_react_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    
+    post = models.ForeignKey(Post, to_field='post_id', on_delete=models.CASCADE, blank=True, null=True)
+    
+    profile = models.ForeignKey(Profile, to_field='u_id', on_delete=models.CASCADE, blank=True, null=True)
+    
+class SadReact(models.Model):
+    sad_react_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    
+    post = models.ForeignKey(Post, to_field='post_id', on_delete=models.CASCADE, blank=True, null=True)
+    
+    profile = models.ForeignKey(Profile, to_field='u_id', on_delete=models.CASCADE, blank=True, null=True)
