@@ -103,6 +103,10 @@ body {
 	transition: 0.5s;
 }
 
+.likes button{
+	display: inline-block;
+}
+
 .form-control::placeholder {
 	color: #ffffff;
 	opacity: 0.8;

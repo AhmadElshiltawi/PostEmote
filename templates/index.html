@@ -8,7 +8,7 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="https://kit.fontawesome.com/c24fec9601.js" crossorigin="anonymous"></script>
-    <script src="{% static 'assets/comment-color.js' %}"></script>
+	<script src="{% static 'assets/comment-color.js' %}"></script>
 	<link rel="stylesheet" type="text/css" href="{% static 'assets/style.css' %}">
 </head>
 <body>
@@ -128,7 +128,7 @@
 						<div class="post-block__content mb-2">
 							<img class="post-image" src={{ post.post_image.url }} alt="Content img">
 						</div>
-						<div class="mb-3">
+						{% comment %} <div class="mb-3">
 							<div class="d-flex justify-content-between mb-2">
 								<div class="d-flex">
 									<div class="likes">
@@ -143,6 +143,48 @@
 										<a class="text-danger mr-2">{{ post.sad_likes }} </a>
                                         {% endif %}
                                         {% if post.profile.user.get_username == user.get_username %}
+                                        <a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-circle-xmark"></i></span></a>
+                                        {% endif %}
+									</div>
+								</div>
+							</div>
+						</div> {% endcomment %}
+						<div class="mb-3">
+							<div class="d-flex justify-content-between mb-2">
+								<div class="d-flex">
+									<div class="likes" style="display:flex;">
+										{% if post.profile.user.get_username != user.get_username %}
+										<form action="/suprised-react" method="POST" class="suprised-form" id="{{post.post_id}}">
+											{% csrf_token %}
+											{{ form.as_p }}
+											<input type="hidden" name = "post_id" value={{post.post_id}}>
+											<button type="submit"><i class="suprised-button{{post.post_id}} fa-regular fa-face-surprise"></i></button>
+											<a class="suprised-count{{post.post_id}}">{{post.shocked_likes}}&nbsp;&nbsp;&nbsp;</a>
+										</form>
+										<form action="/happy-react" method="POST" class="happy-form" id="{{post.post_id}}">
+											{% csrf_token %}
+											{{ form.as_p }}
+											<input type="hidden" name = "post_id" value={{post.post_id}}>
+											<button type="submit"><i class="happy-button{{post.post_id}} fa-regular fa-face-laugh-squint"></i></button>
+											<a class="happy-count{{post.post_id}}">{{post.happy_likes}}&nbsp;&nbsp;&nbsp;</a>
+										</form>
+										<form action="/angry-react" method="POST" class="angry-form" id="{{post.post_id}}">
+											{% csrf_token %}
+											{{ form.as_p }}
+											<input type="hidden" name = "post_id" value={{post.post_id}}>
+											<button type="submit"><i class="angry-button{{post.post_id}} fa-regular fa-face-laugh-squint"></i></button>
+											<a class="angry-count{{post.post_id}}">{{post.angry_likes}}&nbsp;&nbsp;&nbsp;</a>
+										</form>
+										<form action="/sad-react" method="POST" class="sad-form" id="{{post.post_id}}">
+											{% csrf_token %}
+											{{ form.as_p }}
+											<input type="hidden" name = "post_id" value={{post.post_id}}>
+											<button type="submit"><i class="sad-button{{post.post_id}} fa-regular fa-face-laugh-squint"></i></button>
+											<a class="sad-count{{post.post_id}}">{{post.sad_likes}}&nbsp;&nbsp;&nbsp;</a>
+										</form>
+										{% endif %}
+										{% comment %} change this to be like above buttons once deletion is implemented {% endcomment %}
+										{% if post.profile.user.get_username == user.get_username %}
                                         <a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-circle-xmark"></i></span></a>
                                         {% endif %}
 									</div>
@@ -185,4 +227,115 @@
         </div>
 	</section>
 </body>
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$('.suprised-form').submit(function(e){
+			e.preventDefault()
+			const post_id = $(this).attr('id')
+			const url = $(this).attr('action')
+			
+			$.ajax({
+				type: 'POST',
+				url: url,
+				data: {
+					'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+					'post_id':post_id
+				},
+				success: function(response) {
+					console.log('success', response)
+					console.log(response.count)
+					$(`.suprised-count${post_id}`).text(response.suprisedCount + '\xa0\xa0\xa0')
+					$(`.happy-count${post_id}`).text(response.happyCount + '\xa0\xa0\xa0')
+					$(`.angry-count${post_id}`).text(response.angryCount + '\xa0\xa0\xa0')
+					$(`.sad-count${post_id}`).text(response.sadCount + '\xa0\xa0\xa0')
+				},
+				error: function(response) {
+					console.log('error', response)
+				}
+			})
+		})
+	</script>
+	<script>
+		$('.happy-form').submit(function(e){
+			e.preventDefault()
+			const post_id = $(this).attr('id')
+			const url = $(this).attr('action')
+			
+			$.ajax({
+				type: 'POST',
+				url: url,
+				data: {
+					'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+					'post_id':post_id
+				},
+				success: function(response) {
+					console.log('success', response)
+					console.log(response.count)
+					$(`.suprised-count${post_id}`).text(response.suprisedCount + '\xa0\xa0\xa0')
+					$(`.happy-count${post_id}`).text(response.happyCount + '\xa0\xa0\xa0')
+					$(`.angry-count${post_id}`).text(response.angryCount + '\xa0\xa0\xa0')
+					$(`.sad-count${post_id}`).text(response.sadCount + '\xa0\xa0\xa0')
+				},
+				error: function(response) {
+					console.log('error', response)
+				}
+			})
+		})
+	</script>
+	<script>
+		$('.angry-form').submit(function(e){
+			e.preventDefault()
+			const post_id = $(this).attr('id')
+			const url = $(this).attr('action')
+			
+			$.ajax({
+				type: 'POST',
+				url: url,
+				data: {
+					'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+					'post_id':post_id
+				},
+				success: function(response) {
+					console.log('success', response)
+					console.log(response.count)
+					$(`.suprised-count${post_id}`).text(response.suprisedCount + '\xa0\xa0\xa0')
+					$(`.happy-count${post_id}`).text(response.happyCount + '\xa0\xa0\xa0')
+					$(`.angry-count${post_id}`).text(response.angryCount + '\xa0\xa0\xa0')
+					$(`.sad-count${post_id}`).text(response.sadCount + '\xa0\xa0\xa0')
+				},
+				error: function(response) {
+					console.log('error', response)
+				}
+			})
+		})
+	</script>
+	<script>
+		$('.sad-form').submit(function(e){
+			e.preventDefault()
+			const post_id = $(this).attr('id')
+			const url = $(this).attr('action')
+			
+			$.ajax({
+				type: 'POST',
+				url: url,
+				data: {
+					'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+					'post_id':post_id
+				},
+				success: function(response) {
+					console.log('success', response)
+					console.log(response.count)
+					$(`.suprised-count${post_id}`).text(response.suprisedCount + '\xa0\xa0\xa0')
+					$(`.happy-count${post_id}`).text(response.happyCount + '\xa0\xa0\xa0')
+					$(`.angry-count${post_id}`).text(response.angryCount + '\xa0\xa0\xa0')
+					$(`.sad-count${post_id}`).text(response.sadCount + '\xa0\xa0\xa0')
+				},
+				error: function(response) {
+					console.log('error', response)
+				}
+			})
+		})
+	</script>
+{% endblock scripts %}
 </html>
