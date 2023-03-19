@@ -183,9 +183,13 @@
 											<a class="sad-count{{post.post_id}}">{{post.sad_likes}}&nbsp;&nbsp;&nbsp;</a>
 										</form>
 										{% endif %}
-										{% comment %} change this to be like above buttons once deletion is implemented {% endcomment %}
 										{% if post.profile.user.get_username == user.get_username %}
-                                        <a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-circle-xmark"></i></span></a>
+										<form action="/remove-post" method="POST" class="remove-post" id="{{post.post_id}}">
+											{% csrf_token %}
+											{{ form.as_p }}
+											<input type="hidden" name = "post_id" value={{post.post_id}}>
+											<button type="submit" class="text-danger mr-2"><span><i class="suprised-button{{post.post_id}} fa-regular fa-circle-xmark"></i></span></button>
+										</form>
                                         {% endif %}
 									</div>
 								</div>
@@ -243,15 +247,12 @@
 					'post_id':post_id
 				},
 				success: function(response) {
-					console.log('success', response)
-					console.log(response.count)
 					$(`.suprised-count${post_id}`).text(response.suprisedCount + '\xa0\xa0\xa0')
 					$(`.happy-count${post_id}`).text(response.happyCount + '\xa0\xa0\xa0')
 					$(`.angry-count${post_id}`).text(response.angryCount + '\xa0\xa0\xa0')
 					$(`.sad-count${post_id}`).text(response.sadCount + '\xa0\xa0\xa0')
 				},
 				error: function(response) {
-					console.log('error', response)
 				}
 			})
 		})
@@ -270,15 +271,12 @@
 					'post_id':post_id
 				},
 				success: function(response) {
-					console.log('success', response)
-					console.log(response.count)
 					$(`.suprised-count${post_id}`).text(response.suprisedCount + '\xa0\xa0\xa0')
 					$(`.happy-count${post_id}`).text(response.happyCount + '\xa0\xa0\xa0')
 					$(`.angry-count${post_id}`).text(response.angryCount + '\xa0\xa0\xa0')
 					$(`.sad-count${post_id}`).text(response.sadCount + '\xa0\xa0\xa0')
 				},
 				error: function(response) {
-					console.log('error', response)
 				}
 			})
 		})
@@ -297,15 +295,12 @@
 					'post_id':post_id
 				},
 				success: function(response) {
-					console.log('success', response)
-					console.log(response.count)
 					$(`.suprised-count${post_id}`).text(response.suprisedCount + '\xa0\xa0\xa0')
 					$(`.happy-count${post_id}`).text(response.happyCount + '\xa0\xa0\xa0')
 					$(`.angry-count${post_id}`).text(response.angryCount + '\xa0\xa0\xa0')
 					$(`.sad-count${post_id}`).text(response.sadCount + '\xa0\xa0\xa0')
 				},
 				error: function(response) {
-					console.log('error', response)
 				}
 			})
 		})
@@ -324,17 +319,36 @@
 					'post_id':post_id
 				},
 				success: function(response) {
-					console.log('success', response)
-					console.log(response.count)
 					$(`.suprised-count${post_id}`).text(response.suprisedCount + '\xa0\xa0\xa0')
 					$(`.happy-count${post_id}`).text(response.happyCount + '\xa0\xa0\xa0')
 					$(`.angry-count${post_id}`).text(response.angryCount + '\xa0\xa0\xa0')
 					$(`.sad-count${post_id}`).text(response.sadCount + '\xa0\xa0\xa0')
 				},
 				error: function(response) {
-					console.log('error', response)
 				}
 			})
+		})
+	</script>
+	<script>
+		$('.remove-post').submit(function(e){
+			e.preventDefault()
+			const post_id = $(this).attr('id')
+			const url = $(this).attr('action')
+			
+			$.ajax({
+				type: 'POST',
+				url: url,
+				data: {
+					'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+					'post_id':post_id
+				},
+				success: function(response) {
+					location.reload()
+				},
+				error: function(response) {
+				}
+			})
+			
 		})
 	</script>
 {% endblock scripts %}

@@ -237,6 +237,14 @@ def sad_react(request):
         return JsonResponse(data, safe=False)
     return redirect('/')
 
+@login_required(login_url='signin')
+def remove_post(request):
+    if request.method == 'POST':
+        post = Post.objects.get(post_id=request.POST.get('post_id'))
+        post.delete()
+        index(request)
+    return redirect('/')
+
 def signin(request):
     if request.user.is_authenticated:
         return redirect('index')

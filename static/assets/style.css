@@ -105,6 +105,7 @@ body {
 
 .likes button{
 	display: inline-block;
+	background-color: transparent;
 }
 
 .form-control::placeholder {
