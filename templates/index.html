@@ -20,7 +20,7 @@
 				<!--PostEmote logo-->
 			   
 				<div class="logo">
-                	<img src="{% static 'images/Instagram_Logo_2016.png' %}" alt="Postemote_logo">
+                	<img src="{% static 'images/PostEmote_logo.png' %}" alt="Postemote_logo">
             	</div>
 
 			   <!--profile image & text-->
@@ -91,7 +91,7 @@
                         <li>
 							<a href="{% url 'disable-comments' %}">
 								<span class="icon"><i class="fa-solid fa-lock"></i></span>
-								<span class="item">Disable Comments</span>
+								<span class="item">Disable comments</span>
 							</a>
 						</li>
 						{% else %}
@@ -200,7 +200,7 @@
                                 <div class="input-group mb-3">
                                         <input name="comment{{post.post_id}}" type="text" onfocusin="commentButtonRed('button-addon{{ post.post_id }}')" onfocusout="commentButtonWhite('button-addon{{ post.post_id }}')" class="form-control" id="comment{{ post.post_id }}" placeholder="Share your thoughts">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary comment-button{{post.post_id}}" type="submit"><i class="fa fa-paper-plane"></i></button>
+                                            <button id="button-addon{{ post.post_id }}" class="btn btn-primary comment-button{{post.post_id}}" type="submit"><i class="fa fa-paper-plane"></i></button>
                                         </div>
                                 </div>
                             </form>

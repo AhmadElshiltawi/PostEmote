@@ -166,26 +166,28 @@ body {
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 225px;
+	width: 245px;
 	height: 100%;
 	padding: 20px 0;
 	transition: all 0.5s ease;
 	box-shadow: 0 10px 25px rgba(92, 99, 105, .2);
   }
+
+  /*.wrapper .sidebar .logo{*/
+	/*margin-bottom: 30px;*/
+	/*text-align: center;*/
+  /*}*/
   
-  .wrapper .sidebar .logo{
-	margin-bottom: 30px;
-	text-align: center;
-  }
-  
-  .wrapper .sidebar .logo img{
-	display: block;
-	width: 150px;
-    height: auto;
-	border-radius: 100%;
-	margin: 0 auto;
-	filter: invert(1);
-  }
+  /*.wrapper .sidebar .logo img{*/
+	/*display: block;*/
+	/*width: 150px;*/
+  /*  height: auto;*/
+	/*border-radius: 100%;*/
+	/*margin: 0 auto;*/
+	/*filter: invert(0);*/
+  /*}*/
+
+
 
   .wrapper .sidebar .profile-account{
 	margin-bottom: 30px;
