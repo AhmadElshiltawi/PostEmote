@@ -34,19 +34,6 @@ class Post(models.Model):
     sad_likes = models.IntegerField(default=0)
     shocked_likes = models.IntegerField(default=0)
 
-
-class Comment(models.Model):
-    # ID that acts as the primary key
-    comment_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-
-    # Connect the comment to the post via foreign key
-    post = models.ForeignKey(Post, to_field='post_id', on_delete=models.CASCADE, blank=True, null=True)
-
-    # Connect the comment to the authenticated user via foreign key
-    profile = models.ForeignKey(Profile, to_field='u_id', on_delete=models.CASCADE, blank=True, null=True)
-
-    comment = models.TextField()
-
 class SuprisedReact(models.Model):
     superised_react_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     
@@ -74,3 +61,17 @@ class SadReact(models.Model):
     post = models.ForeignKey(Post, to_field='post_id', on_delete=models.CASCADE, blank=True, null=True)
     
     profile = models.ForeignKey(Profile, to_field='u_id', on_delete=models.CASCADE, blank=True, null=True)
+    
+class Comment(models.Model):
+    # ID that acts as the primary key
+    comment_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+
+    # Connect the comment to the post via foreign key
+    post = models.ForeignKey(Post, to_field='post_id', on_delete=models.CASCADE, blank=True, null=True)
+
+    # Connect the comment to the authenticated user via foreign key
+    profile = models.ForeignKey(Profile, to_field='u_id', on_delete=models.CASCADE, blank=True, null=True)
+    
+    reaction = models.TextField()
+
+    comment = models.TextField()

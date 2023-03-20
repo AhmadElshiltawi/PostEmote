@@ -22,13 +22,13 @@ def index(request):
             new_post.save()
             return redirect('/')
 
-        elif 'comment' in request.POST:
-            cur_post_id = request.POST['post_id']
-            cur_comment = request.POST['comment']
-            current_post = Post.objects.get(post_id=cur_post_id)
-            new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
-            new_comment.save()
-            return redirect('/')
+        # elif 'comment' in request.POST:
+        #     cur_post_id = request.POST['post_id']
+        #     cur_comment = request.POST['comment']
+        #     current_post = Post.objects.get(post_id=cur_post_id)
+        #     new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
+        #     new_comment.save()
+        #     return redirect('/')
     
     return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all().order_by('created'), 'comments': Comment.objects.all()})
 
@@ -344,6 +344,45 @@ def remove_post(request):
         post = Post.objects.get(post_id=request.POST.get('post_id'))
         post.delete()
         index(request)
+    return redirect('/')
+
+@login_required(login_url='signin')
+def add_comment(request):
+    if request.method == 'POST':
+        canComment = False
+        post = Post.objects.get(post_id=request.POST.get('post_id'))
+        profile = Profile.objects.get(user=request.user)
+        comment = request.POST.get("comment")
+        reaction = ''
+        if SuprisedReact.objects.filter(post=post, profile=profile).first():
+            canComment = True
+            reaction = 'Surprised'
+            new_comment = Comment.objects.create(post=post, profile=profile, comment=comment, reaction=reaction)
+            new_comment.save()
+            index(request)
+        if HappyReact.objects.filter(post=post, profile=profile).first():
+            canComment = True
+            reaction = 'Happy'
+            new_comment = Comment.objects.create(post=post, profile=profile, comment=comment, reaction=reaction)
+            new_comment.save()
+            index(request)
+        if AngryReact.objects.filter(post=post, profile=profile).first():
+            canComment = True
+            reaction = 'Angry'
+            new_comment = Comment.objects.create(post=post, profile=profile, comment=comment, reaction=reaction)
+            new_comment.save()
+            index(request)
+        if SadReact.objects.filter(post=post, profile=profile).first():
+            canComment = True
+            reaction = 'Sad'
+            new_comment = Comment.objects.create(post=post, profile=profile, comment=comment, reaction=reaction)
+            new_comment.save()
+            index(request)
+        data = {
+            'canComment': canComment,
+            'reaction': reaction
+        }
+        return JsonResponse(data, safe=False)
     return redirect('/')
 
 def signin(request):

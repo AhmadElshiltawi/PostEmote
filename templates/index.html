@@ -177,14 +177,14 @@
 						<hr>
 						<div class="post-block__comments">
 							<!-- Comment Input -->
-                            <form method="POST">
+                            <form method="POST" class="comment-form" id="{{post.post_id}}" action="/add-comment">
                                 {% csrf_token %}
                                 {{ form.as_p }}
                                 <input name="post_id" type="hidden" value={{ post.post_id }}>
                                 <div class="input-group mb-3">
-                                        <input name="comment" type="text" onfocusin="commentButtonRed('button-addon{{ forloop.counter }}')" onfocusout="commentButtonWhite('button-addon{{ forloop.counter }}')" class="form-control" id="comment-input{{ forloop.counter }}" placeholder="Share your thoughts">
+                                        <input name="comment{{post.post_id}}" type="text" onfocusin="commentButtonRed('button-addon{{ post.post_id }}')" onfocusout="commentButtonWhite('button-addon{{ post.post_id }}')" class="form-control" id="comment{{ post.post_id }}" placeholder="Share your thoughts">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit" id="button-addon{{ forloop.counter }}"><i class="fa fa-paper-plane"></i></button>
+                                            <button class="btn btn-primary comment-button{{post.post_id}}" type="submit"><i class="fa fa-paper-plane"></i></button>
                                         </div>
                                 </div>
                             </form>
@@ -196,7 +196,7 @@
                                         <div class="d-flex mb-2">
                                             <img src={{ cur_comment.profile.profile_image.url }} alt="User img" class="author-img author-img--small mr-2">
                                                 <div class="commenter-info">
-                                                    <div class="comment">{{ cur_comment.profile.user.get_username }}: {{ cur_comment.comment }}</div>
+                                                    <div class="comment">{{ cur_comment.profile.user.get_username }} Was {{ cur_comment.reaction }} And Said: {{ cur_comment.comment }}</div>
                                                 </div>
                                         </div>
                                     </div>
@@ -328,6 +328,33 @@
 				}
 			})
 			
+		})
+	</script>
+	<script>
+		$('.comment-form').submit(function(e){
+			e.preventDefault()
+			const post_id = $(this).attr('id')
+			var comment = $('input[name="comment'+post_id+'"]').val()
+			const url = $(this).attr('action')
+			console.log(comment)
+			$.ajax({
+				type: 'POST',
+				url: url,
+				data: {
+					'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+					'post_id':post_id,
+					'comment':comment
+				},
+				success: function(response) {
+					if(!response.canComment){
+						window.alert("Must React To Post Before Commenting")
+					}
+					location.reload()
+				},
+				error: function(response) {
+				}
+			})
+			return false
 		})
 	</script>
 {% endblock scripts %}
