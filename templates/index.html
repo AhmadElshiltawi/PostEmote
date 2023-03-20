@@ -87,6 +87,21 @@
 								    <span class="item">Post an image</span>
                                 </label></a>
 						</li>
+						{% if profile.allow_comments %}
+                        <li>
+							<a href="{% url 'disable-comments' %}">
+								<span class="icon"><i class="fa-solid fa-lock"></i></span>
+								<span class="item">Disable Comments</span>
+							</a>
+						</li>
+						{% else %}
+                        <li>
+							<a href="{% url 'enable-comments' %}">
+								<span class="icon"><i class="fa-solid fa-lock"></i></span>
+								<span class="item">Enable Comments</span>
+							</a>
+						</li>
+                        {% endif %}
                         {% if user.is_staff %}
                         <li>
 							<a href="{% url 'admin:index' %}">
@@ -175,6 +190,7 @@
 							</div>
 						</div>
 						<hr>
+						{% if post.profile.allow_comments %}
 						<div class="post-block__comments">
 							<!-- Comment Input -->
                             <form method="POST" class="comment-form" id="{{post.post_id}}" action="/add-comment">
@@ -203,6 +219,7 @@
                                 {% endif %}
                             {% endfor %}
 						</div>
+						{% endif %}
 					</div>
 				</div>
                 {% endfor %}

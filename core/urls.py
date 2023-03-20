@@ -27,6 +27,10 @@ urlpatterns = [
     path('remove-post', views.remove_post, name = "remove-post"),
     
     path('add-comment', views.add_comment, name = "add-comment"),
+    
+    path('disable-comments', views.disable_comments, name = "disable-comments"),
+    
+    path('enable-comments', views.enable_comments, name = "enable-comments"),
 
     # For the signin path (www.our_url.com/signin), run views.signin
     path('signin', views.signin, name='signin'),

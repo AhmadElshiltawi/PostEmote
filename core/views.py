@@ -47,13 +47,13 @@ def surprising_sort(request):
             new_post.save()
             return redirect('/')
 
-        elif 'comment' in request.POST:
-            cur_post_id = request.POST['post_id']
-            cur_comment = request.POST['comment']
-            current_post = Post.objects.get(post_id=cur_post_id)
-            new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
-            new_comment.save()
-            return redirect('/')
+        # elif 'comment' in request.POST:
+        #     cur_post_id = request.POST['post_id']
+        #     cur_comment = request.POST['comment']
+        #     current_post = Post.objects.get(post_id=cur_post_id)
+        #     new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
+        #     new_comment.save()
+        #     return redirect('/')
 
     return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all().order_by('shocked_likes'), 'comments': Comment.objects.all()})
 
@@ -72,13 +72,13 @@ def happy_sort(request):
             new_post.save()
             return redirect('/')
 
-        elif 'comment' in request.POST:
-            cur_post_id = request.POST['post_id']
-            cur_comment = request.POST['comment']
-            current_post = Post.objects.get(post_id=cur_post_id)
-            new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
-            new_comment.save()
-            return redirect('/')
+        # elif 'comment' in request.POST:
+        #     cur_post_id = request.POST['post_id']
+        #     cur_comment = request.POST['comment']
+        #     current_post = Post.objects.get(post_id=cur_post_id)
+        #     new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
+        #     new_comment.save()
+        #     return redirect('/')
 
     return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all().order_by('happy_likes'), 'comments': Comment.objects.all()})
 
@@ -97,13 +97,13 @@ def angry_sort(request):
             new_post.save()
             return redirect('/')
 
-        elif 'comment' in request.POST:
-            cur_post_id = request.POST['post_id']
-            cur_comment = request.POST['comment']
-            current_post = Post.objects.get(post_id=cur_post_id)
-            new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
-            new_comment.save()
-            return redirect('/')
+        # elif 'comment' in request.POST:
+        #     cur_post_id = request.POST['post_id']
+        #     cur_comment = request.POST['comment']
+        #     current_post = Post.objects.get(post_id=cur_post_id)
+        #     new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
+        #     new_comment.save()
+        #     return redirect('/')
 
     return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all().order_by('angry_likes'), 'comments': Comment.objects.all()})
 
@@ -383,6 +383,20 @@ def add_comment(request):
             'reaction': reaction
         }
         return JsonResponse(data, safe=False)
+    return redirect('/')
+
+@login_required(login_url='signin')
+def disable_comments(request):
+    profile = Profile.objects.get(user=request.user)
+    profile.allow_comments = False
+    profile.save()
+    return redirect('/')
+
+@login_required(login_url='signin')
+def enable_comments(request):
+    profile = Profile.objects.get(user=request.user)
+    profile.allow_comments = True
+    profile.save()
     return redirect('/')
 
 def signin(request):

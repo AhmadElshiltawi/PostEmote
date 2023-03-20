@@ -16,6 +16,8 @@ class Profile(models.Model):
     # If the user doesn't upload a profile picture, then use the default blank-pp profile image
     # The blank-pp image can be found in media
     profile_image = models.ImageField(upload_to='profile_images', default="blank-pp.png")
+    
+    allow_comments = models.BooleanField(default=True)
 
 class Post(models.Model):
 
