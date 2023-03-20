@@ -25,6 +25,8 @@ urlpatterns = [
     path('sad-react', views.sad_react, name = "sad-react"),
     
     path('remove-post', views.remove_post, name = "remove-post"),
+    
+    path('add-comment', views.add_comment, name = "add-comment"),
 
     # For the signin path (www.our_url.com/signin), run views.signin
     path('signin', views.signin, name='signin'),
