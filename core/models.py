@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth import get_user_model
 import uuid
@@ -25,6 +26,8 @@ class Post(models.Model):
     profile = models.ForeignKey(Profile, to_field='u_id', on_delete=models.CASCADE, blank=True, null=True)
 
     post_image = models.ImageField(upload_to='post_images')
+    
+    created = models.DateTimeField(default=timezone.now)
 
     happy_likes = models.IntegerField(default=0)
     angry_likes = models.IntegerField(default=0)
