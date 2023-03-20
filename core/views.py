@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User, auth
@@ -28,8 +29,108 @@ def index(request):
             new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
             new_comment.save()
             return redirect('/')
+    
+    return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all().order_by('created'), 'comments': Comment.objects.all()})
 
-    return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all(), 'comments': Comment.objects.all()})
+@login_required(login_url='signin')
+def surprising_sort(request):
+    profile = Profile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        if 'profile-picture' in request.FILES:
+            profile.profile_image = request.FILES['profile-picture']
+            profile.save()
+            return redirect('/')
+
+        elif 'post-image' in request.FILES:
+            new_post = Post(profile=profile, post_image=request.FILES['post-image'])
+            new_post.save()
+            return redirect('/')
+
+        elif 'comment' in request.POST:
+            cur_post_id = request.POST['post_id']
+            cur_comment = request.POST['comment']
+            current_post = Post.objects.get(post_id=cur_post_id)
+            new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
+            new_comment.save()
+            return redirect('/')
+
+    return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all().order_by('shocked_likes'), 'comments': Comment.objects.all()})
+
+@login_required(login_url='signin')
+def happy_sort(request):
+    profile = Profile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        if 'profile-picture' in request.FILES:
+            profile.profile_image = request.FILES['profile-picture']
+            profile.save()
+            return redirect('/')
+
+        elif 'post-image' in request.FILES:
+            new_post = Post(profile=profile, post_image=request.FILES['post-image'])
+            new_post.save()
+            return redirect('/')
+
+        elif 'comment' in request.POST:
+            cur_post_id = request.POST['post_id']
+            cur_comment = request.POST['comment']
+            current_post = Post.objects.get(post_id=cur_post_id)
+            new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
+            new_comment.save()
+            return redirect('/')
+
+    return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all().order_by('happy_likes'), 'comments': Comment.objects.all()})
+
+@login_required(login_url='signin')
+def angry_sort(request):
+    profile = Profile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        if 'profile-picture' in request.FILES:
+            profile.profile_image = request.FILES['profile-picture']
+            profile.save()
+            return redirect('/')
+
+        elif 'post-image' in request.FILES:
+            new_post = Post(profile=profile, post_image=request.FILES['post-image'])
+            new_post.save()
+            return redirect('/')
+
+        elif 'comment' in request.POST:
+            cur_post_id = request.POST['post_id']
+            cur_comment = request.POST['comment']
+            current_post = Post.objects.get(post_id=cur_post_id)
+            new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
+            new_comment.save()
+            return redirect('/')
+
+    return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all().order_by('angry_likes'), 'comments': Comment.objects.all()})
+
+@login_required(login_url='signin')
+def sad_sort(request):
+    profile = Profile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        if 'profile-picture' in request.FILES:
+            profile.profile_image = request.FILES['profile-picture']
+            profile.save()
+            return redirect('/')
+
+        elif 'post-image' in request.FILES:
+            new_post = Post(profile=profile, post_image=request.FILES['post-image'])
+            new_post.save()
+            return redirect('/')
+
+        elif 'comment' in request.POST:
+            cur_post_id = request.POST['post_id']
+            cur_comment = request.POST['comment']
+            current_post = Post.objects.get(post_id=cur_post_id)
+            new_comment = Comment(post=current_post, profile=profile, comment=cur_comment)
+            new_comment.save()
+            return redirect('/')
+
+    return render(request, 'index.html', {'profile': profile, 'posts': Post.objects.all().order_by('sad_likes'), 'comments': Comment.objects.all()})
 
 @login_required(login_url='signin')
 def suprised_react(request):

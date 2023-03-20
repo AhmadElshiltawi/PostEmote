@@ -8,6 +8,14 @@ urlpatterns = [
     # For the signup path (www.our_url.com/signup), run views.signup
     path('signup', views.signup, name='signup'),
     
+    path('surprising_sort', views.surprising_sort, name = 'surprising-sort'),
+    
+    path('happy_sort', views.happy_sort, name = 'happy-sort'),
+    
+    path('angry_sort', views.angry_sort, name = 'angry-sort'),
+    
+    path('sad_sort', views.sad_sort, name = 'sad-sort'),
+    
     path('suprised-react', views.suprised_react, name = "suprised-react"),
     
     path('happy-react', views.happy_react, name = "happy-react"),

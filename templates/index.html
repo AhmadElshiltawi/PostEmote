@@ -47,31 +47,31 @@
 				<div class="menu-items">
 					<ul>
 						<li>
-							<a href="#">
+							<a href="{% url 'index' %}">
 								<span class="icon"><i class="fa-regular fa-clock"></i></span>
 								<span class="item">Most recent</span>
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="{% url 'surprising-sort' %}">
 								<span class="icon"><i class="fa-regular fa-face-surprise"></i></span>
 								<span class="item">Most surprising</span>
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="{% url 'happy-sort' %}">
 								<span class="icon"><i class="fa-regular fa-face-laugh-squint"></i></span>
 								<span class="item">Most funny</span>
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="{% url 'angry-sort' %}">
 								<span class="icon"><i class="fa-regular fa-face-angry"></i></span>
 								<span class="item">Most angering</span>
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="{% url 'sad-sort' %}">
 								<span class="icon"><i class="fa-regular fa-face-sad-cry"></i></span>
 								<span class="item">Most sad</span>
 							</a>
@@ -121,34 +121,13 @@
 								<div class="poster-info">
 									<div class="poster-name">{{ post.profile.user.get_username }}</div>
 									<div class="poster-dot"> &nbsp;•&nbsp; </div>
-									<div class="poster-time">5 min</div>
+									<div class="poster-time">{{ post.created }}</div>
 								</div>
 							</div>
 						</div>
 						<div class="post-block__content mb-2">
 							<img class="post-image" src={{ post.post_image.url }} alt="Content img">
 						</div>
-						{% comment %} <div class="mb-3">
-							<div class="d-flex justify-content-between mb-2">
-								<div class="d-flex">
-									<div class="likes">
-                                        {% if post.profile.user.get_username != user.get_username %}
-										<a href="/suprised-react?post_id={{post.post_id}}" class="text-danger mr-2"><span><i class="fa-regular fa-face-surprise"></i></span></a>
-										<a class="text-danger mr-2">{{ post.shocked_likes }} </a>
-										<a href="/happy-react?post_id={{post.post_id}}" class="text-danger mr-2"><span><i class="fa-regular fa-face-laugh-squint"></i></span></a>
-										<a class="text-danger mr-2">{{ post.happy_likes }} </a>
-										<a href="/angry-react?post_id={{post.post_id}}" class="text-danger mr-2"><span><i class="fa-regular fa-face-angry"></i></span></a>
-										<a class="text-danger mr-2">{{ post.angry_likes }} </a>
-										<a href="/sad-react?post_id={{post.post_id}}" class="text-danger mr-2"><span><i class="fa-regular fa-face-sad-cry"></i></span></a>
-										<a class="text-danger mr-2">{{ post.sad_likes }} </a>
-                                        {% endif %}
-                                        {% if post.profile.user.get_username == user.get_username %}
-                                        <a href="#!" class="text-danger mr-2"><span><i class="fa-regular fa-circle-xmark"></i></span></a>
-                                        {% endif %}
-									</div>
-								</div>
-							</div>
-						</div> {% endcomment %}
 						<div class="mb-3">
 							<div class="d-flex justify-content-between mb-2">
 								<div class="d-flex">
@@ -172,14 +151,14 @@
 											{% csrf_token %}
 											{{ form.as_p }}
 											<input type="hidden" name = "post_id" value={{post.post_id}}>
-											<button type="submit"><i class="angry-button{{post.post_id}} fa-regular fa-face-laugh-squint"></i></button>
+											<button type="submit"><i class="angry-button{{post.post_id}} fa-regular fa-face-angry"></i></button>
 											<a class="angry-count{{post.post_id}}">{{post.angry_likes}}&nbsp;&nbsp;&nbsp;</a>
 										</form>
 										<form action="/sad-react" method="POST" class="sad-form" id="{{post.post_id}}">
 											{% csrf_token %}
 											{{ form.as_p }}
 											<input type="hidden" name = "post_id" value={{post.post_id}}>
-											<button type="submit"><i class="sad-button{{post.post_id}} fa-regular fa-face-laugh-squint"></i></button>
+											<button type="submit"><i class="sad-button{{post.post_id}} fa-regular fa-face-sad-cry"></i></button>
 											<a class="sad-count{{post.post_id}}">{{post.sad_likes}}&nbsp;&nbsp;&nbsp;</a>
 										</form>
 										{% endif %}
