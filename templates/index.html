@@ -148,7 +148,6 @@
 							<div class="d-flex justify-content-between mb-2">
 								<div class="d-flex">
 									<div class="likes" style="display:flex;">
-										{% if post.profile.user.get_username != user.get_username %}
 										<form action="/suprised-react" method="POST" class="suprised-form" id="{{post.post_id}}">
 											{% csrf_token %}
 											{{ form.as_p }}
@@ -177,7 +176,6 @@
 											<button type="submit"><i class="sad-button{{post.post_id}} fa-regular fa-face-sad-cry"></i></button>
 											<a class="sad-count{{post.post_id}}">{{post.sad_likes}}&nbsp;&nbsp;&nbsp;</a>
 										</form>
-										{% endif %}
 										{% if post.profile.user.get_username == user.get_username %}
 										<form action="/remove-post" method="POST" class="remove-post" id="{{post.post_id}}">
 											{% csrf_token %}
